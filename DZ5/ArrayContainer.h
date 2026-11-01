@@ -18,10 +18,12 @@ public:
     }
 
 
+    ArrayContainer(const ArrayContainer&) = delete; // добавил
+    ArrayContainer& operator=(const ArrayContainer&) = delete; // добавил
+
     ~ArrayContainer() {
         delete[] m_data;
     }
-
 
     void push_back(const T& value) {
         if (m_size >= m_capacity) {
@@ -43,7 +45,7 @@ public:
 
 
     void insert(size_t index, const T& value) {
-        if (index > m_size) return;
+        if (index >= m_size) throw std::out_of_range("Индекс за пределами массива");// изменил
 
         if (m_size >= m_capacity) {
             m_capacity *= 2;
@@ -59,16 +61,13 @@ public:
             m_data[i] = m_data[i - 1];
         }
 
-        if (index < m_capacity) {
-            m_data[index] = value;
-        }
-       
+        m_data[index] = value;
         m_size++;
     }
 
 
     void erase(size_t index) {
-        if (index >= m_size) return;
+        if (index >= m_size) throw std::out_of_range(" Индекс за пределами массива"); // изменил
 
         for (size_t i = index; i < m_size - 1; i++) {
             m_data[i] = m_data[i + 1];
@@ -91,10 +90,12 @@ public:
 
 
     T& operator[](size_t index) {
+        if (index >= m_size) throw std::out_of_range("Индекс за пределами массива"); // добавил
         return m_data[index];
     }
 
     const T& operator[](size_t index) const {
+        if (index >= m_size) throw std::out_of_range("Индекс за пределами массива"); // добавил
         return m_data[index];
     }
 };
