@@ -23,8 +23,10 @@ public:
         m_size = 0;
     }
 
+    OneWayList(const OneWayList&) = delete; // добавил
+    OneWayList& operator=(const OneWayList&) = delete;// добавил
 
-    ~OneWayList() {
+    ~OneWayList() { 
         Node<T>* current = m_head;
         while (current != nullptr) {
             Node<T>* nextNode = current->next;
@@ -91,8 +93,8 @@ public:
 
         if (index >= m_size) {
             throw std::out_of_range("Призраков не трогаем, только живых");
-        }
 
+        }
 
         if (index == 0) {
             Node<T>* temp = m_head;
@@ -101,25 +103,25 @@ public:
             m_size--;
         }
 
-        else {
-            Node<T>* current = m_head;
+       else {
+        Node<T>* current = m_head;
 
-
-            for (size_t i = 0; i < index - 1; i++) {
-                current = current->next;
-            }
-
-
-            Node<T>* node_to_delete = current->next;
-
-
-            current->next = node_to_delete->next;
-
-
-            delete node_to_delete;
-            m_size--;
+        
+        for (size_t i = 0; i < index - 1; i++) {
+            current = current->next;
         }
+
+        Node<T>* node_to_delete = current->next;
+
+        if (node_to_delete == m_tail) { // добавил
+            m_tail = current;
+        }
+        current->next = node_to_delete->next;
+        delete node_to_delete;
+        m_size--;
     }
+    }
+
     void insert(size_t index, const T& value) {
 
         if (index > m_size) {
@@ -159,4 +161,5 @@ public:
 
         m_size++;
     }
+
 };
