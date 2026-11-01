@@ -2,21 +2,21 @@
 #include <iostream>
 
 template <typename T>
-struct Node {
+struct Nodee { // добавил в конце Node ещё один e
     T m_data;
-    Node* next;
-    Node* prev;
+    Nodee* next; 
+    Nodee* prev; 
 
-    Node(const T& value) : m_data(value), next(nullptr), prev(nullptr) {}
+    Nodee(const T& value) : m_data(value), next(nullptr), prev(nullptr) {}
 };
 
 template <typename T>
 class TRAIN {
 private:
-    Node<T>* m_head;
-    Node<T>* m_tail;
+    Nodee<T>* m_head; 
+    Nodee<T>* m_tail; 
     size_t m_size;
-
+    
 public:
     TRAIN() {
         m_head = nullptr;
@@ -24,34 +24,36 @@ public:
         m_size = 0;
     }
 
+    TRAIN(const TRAIN&) = delete; // добавил
+    TRAIN& operator=(const TRAIN&) = delete;  // добавил
 
     ~TRAIN() {
-        Node<T>* current = m_head;
+        Nodee<T>* current = m_head;
         while (current != nullptr) {
-            Node<T>* nextNode = current->next;
+            Nodee<T>* nextNodee = current->next;
             delete current;
-            current = nextNode;
+            current = nextNodee;
         }
     }
 
     void push_back(const T& value) {
-        Node<T>* new_node = new Node<T>(value);
+        Nodee<T>* new_nodee = new Nodee<T>(value); 
 
         if (m_size == 0) {
-            m_head = new_node;
-            m_tail = new_node;
+            m_head = new_nodee; 
+            m_tail = new_nodee;
             m_size++;
             return;
         }
 
-        m_tail->next = new_node;
-        new_node->prev = m_tail;
-        m_tail = new_node;
+        m_tail->next = new_nodee;
+        new_nodee->prev = m_tail;
+        m_tail = new_nodee;
         m_size++;
     }
 
     void print() const {
-        Node<T>* current = m_head;
+        Nodee<T>* current = m_head;
         while (current != nullptr) {
             std::cout << current->m_data << " <-> ";
             current = current->next;
