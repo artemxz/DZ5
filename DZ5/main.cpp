@@ -20,7 +20,7 @@ int main() {
     std::cout << "Размер: " << arr.size() << "\n";
 
 
-    arr.erase(6);
+    arr.erase(9); // изменил
     arr.erase(4);
     arr.erase(2);
 
